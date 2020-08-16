@@ -1,4 +1,5 @@
 import pygame
+import time
 
 # Creating window
 window = pygame.display.set_mode((800, 600))
@@ -32,6 +33,7 @@ def explode():
     window.blit(explosion, (100, 100))
 
 while running:
+    time.sleep(0.01)
     window.fill((0, 0, 0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -44,13 +46,19 @@ while running:
     shoot()
     # Creating Key Controls
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_SPACE]:
-    # Updating bullet position
-        if bulletx < 750:
+    if keys[pygame.K_RIGHT]:
+        if bulletx < 775:
             bulletx += 1
-        else:
-            explode()
-    if bulletx >= 750:
+    if keys[pygame.K_LEFT]:
+        if bulletx > 25:
+            bulletx -= 1
+    if keys[pygame.K_UP]:
+        if bullety > 25:
+            bullety -= 1
+    if keys[pygame.K_DOWN]:
+        if bullety < 575:
+            bullety += 1
+    if bulletx >= 750 and bullety <= 25:
         explode()
 
     pygame.display.update()
